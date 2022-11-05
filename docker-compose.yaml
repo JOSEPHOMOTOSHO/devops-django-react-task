@@ -1,0 +1,23 @@
+version: '3.8'
+
+services:
+  frontend:
+    image: 'josephomotosho/hng-frontend:latest'
+    ports:
+      - "80:80"
+
+    volumes:
+      - type: bind
+        source : ${PWD}/nginix/
+        target: /etc/nginx/conf.d/
+
+    restart: always
+
+  backend:
+    image: 'josephomotosho/hng-backend:latest'
+    expose:
+      - 3000
+
+    command: python manage.py runserver 0.0.0.0:8000
+
+    restart: always
